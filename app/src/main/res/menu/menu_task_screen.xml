@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menuCategory"
+        android:icon="@drawable/ic_category"
+        android:title="@string/category"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menuSort"
+        android:title="@string/sort_by"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menuHideCompleted"
+        android:checkable="true"
+        android:title="@string/hide_completed"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menuDeleteCompleted"
+        android:title="@string/delete_all_completed"
+        app:showAsAction="never" />
+</menu>

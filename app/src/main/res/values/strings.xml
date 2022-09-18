@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">TodoList</string>
+    <string name="add_task">Add task</string>
+    <string name="set_priority">Set priority</string>
+    <string name="to_do_date">To-do Date</string>
+    <string name="input_task_here">Input task here</string>
+    <string name="due_date">Due date</string>
+    <string name="set_category">Set category</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="create">Create</string>
+    <string name="high">High</string>
+    <string name="medium">Medium</string>
+    <string name="low">Low</string>
+    <string name="none">None</string>
+    <string name="create_new_task">Create new task</string>
+    <string name="select_a_priority">Select a priority</string>
+    <string name="time">Time</string>
+    <string name="input_task_empty_message">Please input task.</string>
+    <string name="input_category_empty_message">Please input category.</string>
+    <string name="edit_task">Edit task</string>
+    <string name="select_a_category">Select a category</string>
+    <string name="done">Done</string>
+    <string name="task_completed">Task completed</string>
+    <string name="category">Category</string>
+    <string name="sort_by">Sort by</string>
+    <string name="hide_completed">Hide completed</string>
+    <string name="delete_all_completed">Delete all completed</string>
+    <string name="task_name">Task name</string>
+    <string name="delete_completed_dialog_message">Are you sure to delete all completed tasks?</string>
+    <string name="confirm">Confirm</string>
+    <string name="choose_category">Choose category</string>
+    <string name="manage_categories">Manage categories</string>
+    <string name="add_category">Add category</string>
+    <string name="search_task">Search tasks…</string>
+    <string name="create_date">Create date</string>
+    <string name="delete_category_message">Are you sure to delete \'%1$s\' category? All tasks in this category will deleted.</string>
+    <string name="create_new_category">Create new category</string>
+    <string name="update">Update</string>
+    <string name="update_category">Update category</string>
+    <string name="category_name">Category name</string>
+    <string name="input_category_here">Input category here</string>
+    <string name="delete_task_message">Are you sure to delete this task?</string>
+    <string name="delete_task">Delete task</string>
+    <string name="delete_all_completed_task">Delete all completed task</string>
+    <string name="delete_category">Delete category</string>
+    <string name="update_task">Update task</string>
+    <string name="finished_task">Finished task</string>
+
+    <string-array name="priority">
+        <item>@string/high</item>
+        <item>@string/medium</item>
+        <item>@string/low</item>
+        <item>@string/none</item>
+    </string-array>
+
+    <string-array name="sort_order_task">
+        <item>@string/task_name</item>
+        <item>@string/due_date</item>
+        <item>@string/create_date</item>
+    </string-array>
+
+    <string-array name="sort_order_category">
+        <item>@string/category_name</item>
+        <item>@string/create_date</item>
+    </string-array>
+</resources>
