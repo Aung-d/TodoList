@@ -18,7 +18,7 @@ abstract class TodoListDatabase : RoomDatabase() {
     class DatabaseCallBack @Inject constructor(
         private val database: Provider<TodoListDatabase>,
         @ApplicationScope private val coroutineScope: CoroutineScope
-    ) : RoomDatabase.Callback() {
+    ) : Callback() {
 
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)

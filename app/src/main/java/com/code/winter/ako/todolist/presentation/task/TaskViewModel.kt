@@ -28,9 +28,6 @@ class TaskViewModel @Inject constructor(
                 mutableList.addAll(categoryList.map { it.categoryName })
                 mutableList.add(CATEGORY_MANAGE)
                 _categories = mutableList.toTypedArray()
-                if (!categories.contains(taskScreenPreferencesFlow.first().categoryName)) {
-                    repository.saveCategoryName(CATEGORY_ALL)
-                }
             }
         }
     }

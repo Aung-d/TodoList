@@ -4,7 +4,7 @@ import com.code.winter.ako.todolist.data.db.TodoListDatabase
 import com.code.winter.ako.todolist.data.preference.*
 import com.code.winter.ako.todolist.model.*
 import com.code.winter.ako.todolist.util.CATEGORY_ALL
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.*
 import javax.inject.*
 
 @Singleton
@@ -14,37 +14,12 @@ class RepositoryImpl @Inject constructor(
 ) : Repository {
 
     override fun getTasks(query: String, preference: TaskScreenPreference) =
-        when (preference.sortOrderTask) {
-            SortOrderTask.BY_DUE_DATE -> {
-                if (preference.categoryName == CATEGORY_ALL)
-                    database.taskDao()
-                        .getAllTasksSortedByDueDate(query, preference.hideCompleted)
-                else database.taskDao()
-                    .getTasksSortedByDueDate(
-                        query,
-                        preference.hideCompleted,
-                        preference.categoryName
-                    )
-            }
-            SortOrderTask.BY_CREATED_DATE -> {
-                if (preference.categoryName == CATEGORY_ALL)
-                    database.taskDao()
-                        .getAllTasksSortedByCreatedDate(query, preference.hideCompleted)
-                else database.taskDao()
-                    .getTasksSortedByCreatedDate(
-                        query,
-                        preference.hideCompleted,
-                        preference.categoryName
-                    )
-            }
-            SortOrderTask.BY_TASK_NAME -> {
-                if (preference.categoryName == CATEGORY_ALL)
-                    database.taskDao()
-                        .getAllTasksSortedByName(query, preference.hideCompleted)
-                else database.taskDao()
-                    .getTasksSortedByName(query, preference.hideCompleted, preference.categoryName)
-            }
-        }
+        database.taskDao().getTasks(
+            query,
+            preference.hideCompleted,
+            preference.categoryName,
+            preference.sortOrderTask.name
+        )
 
     override suspend fun insertTask(task: Task) =
         database.taskDao().insertTask(task)
@@ -74,16 +49,15 @@ class RepositoryImpl @Inject constructor(
         database.taskDao().deleteAllCompletedTask()
 
     override fun getEditableCategories(sortOrderCategory: SortOrderCategory): Flow<List<ManageCategory>> =
-        when (sortOrderCategory) {
-            SortOrderCategory.BY_CREATED_DATE -> database.categoryDao()
-                .getEditableCategoriesSortedByCreateDate()
-            SortOrderCategory.BY_CATEGORY_NAME -> database.categoryDao()
-                .getEditableCategoriesSortedByCategoryName()
-        }
+        database.categoryDao().getEditableCategories(sortOrderCategory.name)
 
     override suspend fun deleteCategoryByCategoryName(categoryName: String) {
         database.categoryDao().deleteCategoryByCategoryName(categoryName)
         database.taskDao().deleteTasksByCategoryName(categoryName)
+        val prefCategoryName = taskScreenPreferencesFlow().first().categoryName
+        if (prefCategoryName == categoryName) {
+            saveCategoryName(CATEGORY_ALL)
+        }
     }
 
     override suspend fun insertCategory(category: Category) =
@@ -92,11 +66,17 @@ class RepositoryImpl @Inject constructor(
     override suspend fun updateCategoryNameByCategoryName(
         newCategoryName: String,
         categoryName: String
-    ) = database.categoryDao().updateCategoryNameByCategoryName(newCategoryName, categoryName)
+    ) {
+        database.categoryDao().updateCategoryNameByCategoryName(newCategoryName, categoryName)
+        database.taskDao().updateTaskCategoryNameByCategoryName(newCategoryName, categoryName)
+        val prefCategoryName = taskScreenPreferencesFlow().first().categoryName
+        if (prefCategoryName == categoryName) saveCategoryName(newCategoryName)
+    }
 
     override fun mcScreenPreferenceFlow(): Flow<SortOrderCategory> =
         dataStorePreferenceManager.mcScreenPreferenceFlow
 
     override suspend fun saveSortOrderCategory(sortOrderCategory: SortOrderCategory) =
         dataStorePreferenceManager.saveSortOrderCategory(sortOrderCategory)
+
 }

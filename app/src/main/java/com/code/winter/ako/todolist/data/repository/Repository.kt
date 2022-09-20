@@ -37,4 +37,5 @@ interface Repository {
     fun mcScreenPreferenceFlow(): Flow<SortOrderCategory>
 
     suspend fun saveSortOrderCategory(sortOrderCategory: SortOrderCategory)
+
 }

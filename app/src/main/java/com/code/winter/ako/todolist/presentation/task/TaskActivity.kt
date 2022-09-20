@@ -3,9 +3,9 @@ package com.code.winter.ako.todolist.presentation.task
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.SearchView
 import androidx.activity.viewModels
 import androidx.appcompat.app.*
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.*
 import com.code.winter.ako.todolist.R
@@ -72,9 +72,7 @@ class TaskActivity : AppCompatActivity(), TaskAdapter.OnTaskItemClickListener {
             }
 
             svTask.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    return true
-                }
+                override fun onQueryTextSubmit(query: String?): Boolean = true
 
                 override fun onQueryTextChange(newText: String?): Boolean {
                     viewModel.onQueryChanged(newText ?: "")
